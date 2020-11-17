@@ -30,67 +30,26 @@ namespace PruebaConexionProlog
         private void InitializeComponent()
         {
 			this.button1 = new System.Windows.Forms.Button();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.checkBox3 = new System.Windows.Forms.CheckBox();
-			this.listBox1 = new System.Windows.Forms.ListBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.pnlCreaMatriz = new System.Windows.Forms.Panel();
+			this.btnCreaMatriz = new System.Windows.Forms.Button();
+			this.inputCantidad = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.pnlTablero = new System.Windows.Forms.Panel();
+			this.pnlCreaMatriz.SuspendLayout();
+			this.pnlTablero.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(45, 347);
-			this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button1.Location = new System.Drawing.Point(47, 463);
+			this.button1.Margin = new System.Windows.Forms.Padding(2);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(94, 28);
 			this.button1.TabIndex = 0;
 			this.button1.Text = "button1";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// checkBox1
-			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(34, 72);
-			this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(78, 17);
-			this.checkBox1.TabIndex = 1;
-			this.checkBox1.Text = "Conectado";
-			this.checkBox1.UseVisualStyleBackColor = true;
-			// 
-			// checkBox2
-			// 
-			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(146, 72);
-			this.checkBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(80, 17);
-			this.checkBox2.TabIndex = 2;
-			this.checkBox2.Text = "checkBox2";
-			this.checkBox2.UseVisualStyleBackColor = true;
-			// 
-			// checkBox3
-			// 
-			this.checkBox3.AutoSize = true;
-			this.checkBox3.Location = new System.Drawing.Point(254, 72);
-			this.checkBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-			this.checkBox3.Name = "checkBox3";
-			this.checkBox3.Size = new System.Drawing.Size(80, 17);
-			this.checkBox3.TabIndex = 3;
-			this.checkBox3.Text = "checkBox3";
-			this.checkBox3.UseVisualStyleBackColor = true;
-			// 
-			// listBox1
-			// 
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.Location = new System.Drawing.Point(34, 133);
-			this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(221, 173);
-			this.listBox1.TabIndex = 4;
 			// 
 			// label1
 			// 
@@ -103,38 +62,66 @@ namespace PruebaConexionProlog
 			this.label1.Text = "Conexion Prolog";
 			this.label1.Click += new System.EventHandler(this.label1_Click);
 			// 
-			// textBox1
+			// pnlCreaMatriz
 			// 
-			this.textBox1.Location = new System.Drawing.Point(34, 110);
-			this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(146, 20);
-			this.textBox1.TabIndex = 6;
+			this.pnlCreaMatriz.Controls.Add(this.label2);
+			this.pnlCreaMatriz.Controls.Add(this.inputCantidad);
+			this.pnlCreaMatriz.Controls.Add(this.btnCreaMatriz);
+			this.pnlCreaMatriz.Location = new System.Drawing.Point(157, 12);
+			this.pnlCreaMatriz.Name = "pnlCreaMatriz";
+			this.pnlCreaMatriz.Size = new System.Drawing.Size(275, 100);
+			this.pnlCreaMatriz.TabIndex = 8;
 			// 
-			// textBox2
+			// btnCreaMatriz
 			// 
-			this.textBox2.Location = new System.Drawing.Point(299, 110);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(100, 20);
-			this.textBox2.TabIndex = 7;
+			this.btnCreaMatriz.Location = new System.Drawing.Point(17, 62);
+			this.btnCreaMatriz.Name = "btnCreaMatriz";
+			this.btnCreaMatriz.Size = new System.Drawing.Size(114, 23);
+			this.btnCreaMatriz.TabIndex = 0;
+			this.btnCreaMatriz.Text = "Crear tablero aleatorio";
+			this.btnCreaMatriz.UseVisualStyleBackColor = true;
+			this.btnCreaMatriz.Click += new System.EventHandler(this.BtnCreaMatriz_Click);
+			// 
+			// inputCantidad
+			// 
+			this.inputCantidad.Location = new System.Drawing.Point(110, 34);
+			this.inputCantidad.Name = "inputCantidad";
+			this.inputCantidad.Size = new System.Drawing.Size(68, 20);
+			this.inputCantidad.TabIndex = 1;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(14, 37);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(96, 13);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Tamaño de tablero";
+			// 
+			// pnlTablero
+			// 
+			this.pnlTablero.Controls.Add(this.button1);
+			this.pnlTablero.Location = new System.Drawing.Point(48, 118);
+			this.pnlTablero.Name = "pnlTablero";
+			this.pnlTablero.Size = new System.Drawing.Size(491, 347);
+			this.pnlTablero.TabIndex = 9;
+			this.pnlTablero.Visible = false;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(600, 468);
-			this.Controls.Add(this.textBox2);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.pnlTablero);
+			this.Controls.Add(this.pnlCreaMatriz);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.listBox1);
-			this.Controls.Add(this.checkBox3);
-			this.Controls.Add(this.checkBox2);
-			this.Controls.Add(this.checkBox1);
-			this.Controls.Add(this.button1);
-			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "Form1";
 			this.Text = " ";
 			this.Load += new System.EventHandler(this.Form1_Load);
+			this.pnlCreaMatriz.ResumeLayout(false);
+			this.pnlCreaMatriz.PerformLayout();
+			this.pnlTablero.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -143,13 +130,12 @@ namespace PruebaConexionProlog
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.Panel pnlCreaMatriz;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox inputCantidad;
+		private System.Windows.Forms.Button btnCreaMatriz;
+		private System.Windows.Forms.Panel pnlTablero;
 	}
 }
 
