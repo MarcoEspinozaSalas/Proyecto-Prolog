@@ -1,3 +1,6 @@
+
+ :- dynamic conexionMatriz/3.
+
 %lugar(pueblo).
 %
 conectado(florencia,cq).
@@ -93,6 +96,13 @@ cargar(A):-exists_file(A),consult(A).
 conectado_con(X,Y):- conectado(X,Y).
 conectado_con(X,Y):- conectado(Y,X).
 %
+
+
+conexionMatriz_con(X,Y,Z):-conexionMatriz(X,Y,Z).
+
+conexionMatriz(1_0,2_0, false).
+
+
 ruta1(Lugar,Lugar,[Lugar]).
 ruta1(Inicio,Fin,[Inicio|Camino]):-
     conectado(Inicio,AlgunLugar),
@@ -104,6 +114,8 @@ ruta2(Inicio,Fin,Visitados,[Inicio|Camino]):-
     conectado_con(Inicio,AlgunLugar), %conectado para el grafo
     not(member(AlgunLugar,Visitados)),
     ruta2(AlgunLugar,Fin,[Inicio|Visitados],Camino).
+	
+	
 ruta(Inicio,Fin,Camino):-
     Inicio\=Fin,
     ruta2(Inicio,Fin,[],Camino), write(Camino).
