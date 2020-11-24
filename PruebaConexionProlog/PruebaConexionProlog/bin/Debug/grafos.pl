@@ -100,9 +100,6 @@ conectado_con(X,Y):- conectado(Y,X).
 
 conexionMatriz_con(X,Y,Z):-conexionMatriz(X,Y,Z).
 
-conexionMatriz(1_0,2_0, false).
-
-
 ruta1(Lugar,Lugar,[Lugar]).
 ruta1(Inicio,Fin,[Inicio|Camino]):-
     conectado(Inicio,AlgunLugar),
