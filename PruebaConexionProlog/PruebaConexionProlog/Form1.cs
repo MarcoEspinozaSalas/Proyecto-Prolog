@@ -23,7 +23,7 @@ namespace PruebaConexionProlog
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Environment.SetEnvironmentVariable("Path", @"C:\\Program Files (x86)\\swipl\\bin");
+            Environment.SetEnvironmentVariable("Path", @"C:\\Program Files\\swipl\\bin");
             string[] p = { "-q", "-f", @"grafos.pl" };
             PlEngine.Initialize(p);
         }
@@ -178,28 +178,25 @@ namespace PruebaConexionProlog
 			var x = 0;
 			var y = 0;
 			var n = 0;
-			CheckBox[] chk;
-			chk = new CheckBox[tamano];
+			Button[] boton;
+			boton = new Button[tamano];
 			for (int j = 0; j < tamano; j++)
 			{
 				for (int i = 0; i < tamano; i++)
 				{
-					int num = _random.Next(4); // [0,1,2,3]  como valores randoms
-					chk[i] = new CheckBox();
-					chk[i].Location = new Point(x, y);
-					chk[i].Visible = true;
-					if (num == 0)
-					{
-						chk[i].Checked = true;
-					}
+					boton[i] = new Button();
+					boton[i].Name = j.ToString()+ "_" + i.ToString();
+					boton[i].Height = 25;
+					boton[i].Width = 35;
+					boton[i].BackColor = Color.Gray;
+					boton[i].Font = new Font("Arial", 12);
+					boton[i].Location = new Point(x, y);
 
-					chk[i].Size = new Size(20, 20);
-					chk[i].Name = "chk" + n;  // chk0 , chk1 , chk2 , etc
-					
-					//chk[i].Click           
-					pnlTablero.Controls.Add(chk[i]);
+
+					pnlTablero.Controls.Add(boton[i]);
 					n++;
 					x = x + 30;
+
 				}
 				x = 0;
 				y = y + 30;
@@ -209,5 +206,6 @@ namespace PruebaConexionProlog
 			solut();
 
 		}
+
 	}
 }
