@@ -67,18 +67,20 @@ namespace PruebaConexionProlog
 			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
 			cargar.NextSolution();
 
+
 			for (int x = 0; x < tamano; x++)
 			{										// CONEXION TOTAL DE MATRIZ PARA VERIFICAR EL GRUPO AL QUE PERTENCE  POR CADA (X,Y)
 				for (int y = 0; y < tamano; y++)
 				{
 					if (x == 0 && y == 0)
-					{                                               //conexionMatriz(0_0 , 0_1 , false);
+					{
 
 						var sum1 = y + 1;
 						var sum2 = x + 1;
 
-						PlQuery consulta1 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + sum1 + ", false)).");
-						PlQuery consulta2 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + sum2 + "_" + y + ", false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + sum1 + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + sum2 + "-" + y + "', false)).");
+						continue;
 
 					}
 					else if (x == 0 && y == tamano - 1)
@@ -86,87 +88,108 @@ namespace PruebaConexionProlog
 						var y2 = y - 1;
 						var x2 = x + 1;
 
-						PlQuery consulta1 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y2 + ", false)).");
-						PlQuery consulta2 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y2 + ", false)).");
-
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y2 + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y2 + "', false)).");
+						continue;
 					}
 					else if (x == tamano - 1 && y == 0)
 					{
 						var x2 = x - 1;
 						var y2 = y + 1;
 
-						PlQuery consulta1 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).");
-						PlQuery consulta2 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y2 + ", false)).");
-
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y2 + "', false)).");
+						continue;
 					}
 					else if (x == tamano - 1 && y == tamano - 1)
 					{
 						var x2 = x - 1;
 						var y2 = y - 1;
 
-						PlQuery consulta1 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).");
-						PlQuery consulta2 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y2 + ", false)).");
-
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y2 + "', false)).");
+						continue;
 					}
 					else if (x != 0 && y != tamano - 1 && y == 0)
 					{
 						var x2 = x - 1;
 						var x3 = x + 1;
-						var y2 = y + 1;   
+						var y2 = y + 1;
 
-						PlQuery consulta1 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).");
-						PlQuery consulta2 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x3 + "_" + y + ", false)).");
-						PlQuery consulta3 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y2 + ", false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x3 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y2 + "', false)).");
+						continue;
 					}
-					else if (x != 0 && x!=tamano-1 && y == tamano-1)
+					else if (x != 0 && x != tamano - 1 && y == tamano - 1)
 					{
 						var x2 = x - 1;
 						var x3 = x + 1;
-						var y2 = y -1;
+						var y2 = y - 1;
 
-						PlQuery consulta1 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).");
-						PlQuery consulta2 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x3 + "_" + y + ", false)).");
-						PlQuery consulta3 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y2 + ", false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x3 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y2 + "', false)).");
+						continue;
 					}
-					else if ( x == 0 && y!= 0 && y != tamano -1)
+					else if (x == 0 && y != 0 && y != tamano - 1)
 					{
 						var x2 = x + 1;
 						var y3 = y + 1;
-						var y2 = y - 1; 
+						var y2 = y - 1;
 
-						PlQuery consulta1 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y2 + ", false)).");
-						PlQuery consulta2 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y3 + ", false)).");
-						PlQuery consulta3 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y2 + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y3 + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						continue;
 					}
-					else if ( y != 0 && y != tamano - 1 && x == tamano - 1)
+					else if (y != 0 && y != tamano - 1 && x == tamano - 1)
 					{
 						var x2 = x - 1;
 						var y3 = y + 1;
-						var y2 = y - 1;   
+						var y2 = y - 1;
 
-						var a = "assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y2 + ", false)).";
-						var b = "assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y3 + ", false)).";
-						var c = "assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).";
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y3 + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						continue;
+					}
+					else {   // Rellena la cuadricula central
+												// 2,4  .... 2,3   ..... 2,5 .... 1,4   .... 3,4
+						var x2 = x - 1;
+						var x3 = x + 1;
+						var y3 = y + 1;
+						var y2 = y - 1;
 
-						PlQuery consulta1 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).");
-						PlQuery consulta2 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y3 + ", false)).");
-						PlQuery consulta3 = new PlQuery("assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).");
+						//var a = "assert(conexionMatriz(" + x + "_" + y + "," + x + "_" + y2 + ", false)).";
+						//var b = "assertz(conexionMatriz(" + x + "_" + y + "," + x + "_" + y3 + ", false)).";
+						//var c = "assertz(conexionMatriz(" + x + "_" + y + "," + x2 + "_" + y + ", false)).";
+						//var d = "assertz(conexionMatriz(" + x + "_" + y + "," + x3 + "_" + y + ", false)).";
+
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y3 + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x3 + "-" + y + "', false)).");
+						continue;
 					}
 
-					// rellenar los del medio 
 				}
 			}
 		}
 
 
 		public void solut() {
-			PlQuery consul = new PlQuery("conexionMatriz_con(X,Y,Z)");
-			var r = consul.SolutionVariables;
-			foreach (PlQueryVariables p in consul.SolutionVariables)
+			using (PlQuery q = new PlQuery("conexionMatriz(P, C, V), atomic_list_concat([P,C,V], L)"))
 			{
-				var aaa = p;   // los retorna como ascii
-				var rer = 0;
+				var r = q.SolutionVariables;
+				foreach (PlQueryVariables p in q.SolutionVariables)
+				{
+					var Resp = p["P"].ToString() +" conectado con "+ p["C"].ToString();
+					var rer = 0;
+				}
 			}
+
+
 		}
 
 
