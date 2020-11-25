@@ -12,42 +12,42 @@ using SbsSW.SwiPlCs;
 
 namespace PruebaConexionProlog
 {
-    public partial class Form1 : Form
-    {
+	public partial class Form1 : Form
+	{
 		private readonly Random _random = new Random();
 		private int name = 1;
 
 		public Form1()
-        {
-            InitializeComponent();
-        }
+		{
+			InitializeComponent();
+		}
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Environment.SetEnvironmentVariable("Path", @"C:\\Program Files\\swipl\\bin");
-            string[] p = { "-q", "-f", @"grafos.pl" };
-            PlEngine.Initialize(p);
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files (x86)\\swipl\\bin");
+			string[] p = { "-q", "-f", @"grafos.pl" };
+			PlEngine.Initialize(p);
 			listBox1.Visible = false;
 		}
 
-        private void label1_Click(object sender, EventArgs e)
-        {
+		private void label1_Click(object sender, EventArgs e)
+		{
 
-        }
+		}
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-   //         string valorObtenido = textBox1.Text;
+		private void button1_Click(object sender, EventArgs e)
+		{
+			//         string valorObtenido = textBox1.Text;
 			//string segundoValor = textBox2.Text;
 			//listBox1.Items.Clear();
-   //         PlQuery cargar = new PlQuery("cargar('grafos.bd')");
-   //         cargar.NextSolution();
-   //         if (checkBox1.Checked == true)
-   //         {
-   //             PlQuery consulta1 = new PlQuery("conectado_con(X,"+valorObtenido+")");
-   //             foreach (PlQueryVariables z in consulta1.SolutionVariables)
-   //                 listBox1.Items.Add(z["X"].ToString());
-   //         }
+			//         PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+			//         cargar.NextSolution();
+			//         if (checkBox1.Checked == true)
+			//         {
+			//             PlQuery consulta1 = new PlQuery("conectado_con(X,"+valorObtenido+")");
+			//             foreach (PlQueryVariables z in consulta1.SolutionVariables)
+			//                 listBox1.Items.Add(z["X"].ToString());
+			//         }
 			//if (checkBox2.Checked == true)
 			//{
 			//	PlQuery consulta1 = new PlQuery("ruta(" + valorObtenido + "," + segundoValor + ",Lista)");
@@ -71,7 +71,7 @@ namespace PruebaConexionProlog
 
 
 			for (int x = 0; x < tamano; x++)
-			{										// CONEXION TOTAL DE MATRIZ PARA VERIFICAR EL GRUPO AL QUE PERTENCE  POR CADA (X,Y)
+			{                                       // CONEXION TOTAL DE MATRIZ PARA VERIFICAR EL GRUPO AL QUE PERTENCE  POR CADA (X,Y)
 				for (int y = 0; y < tamano; y++)
 				{
 					if (x == 0 && y == 0)
@@ -157,7 +157,7 @@ namespace PruebaConexionProlog
 						continue;
 					}
 					else {   // Rellena la cuadricula central
-												// 2,4  .... 2,3   ..... 2,5 .... 1,4   .... 3,4
+							 // 2,4  .... 2,3   ..... 2,5 .... 1,4   .... 3,4
 						var x2 = x - 1;
 						var x3 = x + 1;
 						var y3 = y + 1;
@@ -172,11 +172,15 @@ namespace PruebaConexionProlog
 						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y3 + "', false)).");
 						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
 						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x3 + "-" + y + "', false)).");
+						
 						continue;
 					}
 
 				}
 			}
+			cargar.Dispose();
+
+
 		}
 
 
@@ -188,33 +192,80 @@ namespace PruebaConexionProlog
 				var r = q.SolutionVariables;
 				foreach (PlQueryVariables p in q.SolutionVariables)
 				{
-					var Resp = p["P"].ToString() +" conectado con "+ p["C"].ToString();
-					var rer = 0;
+					var Resp = p["P"].ToString() + " conectado con " + p["C"].ToString();
 				}
+				q.Dispose();
 			}
-
-
 		}
 
+
+
 		public void clickBoton(object sender, EventArgs e)
-        {
+		{
 			listBox1.Items.Clear();
 			string texto = (sender as Button).Text;
 			string nombre = (sender as Button).Name;
 
-			char fila = nombre[0];
-			char columna = nombre[2];
-			listBox1.Items.Add("Boton " + texto  + " fila " + fila + " columna " + columna );
+		     PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+			cargar.NextSolution();
 
-            if ((sender as Button).Text[0] != '.')
-            {
-				((Button)sender).BackColor = Color.Green;
-				((Button)sender).Text = "."+(sender as Button).Text;
+			
+
+			bool EsGrupo = verificaSiEstaEnGrupo(nombre);
+			if (!EsGrupo)
+			{
+				//Si no esta en grupo , se agrega a Prolog
+				var a = "assert(grupo('" + nombre + "')).";
+				PlQuery.PlCall("assert(grupo('" + nombre + "')).");
+			}
+			else {
+				// Averiguar el grupo al que corresponde ese boton y colorearlos
+				Console.WriteLine("Colorea");
 			}
 
+			cargar.Dispose();
 
 
-        }
+			char fila = nombre[0];
+			char columna = nombre[2];
+			listBox1.Items.Add("Boton " + texto + " fila " + fila + " columna " + columna);
+
+			if ((sender as Button).Text[0] != '.')
+			{
+				((Button)sender).BackColor = Color.Green;
+				((Button)sender).Text = "." + (sender as Button).Text;
+			
+			}
+		}
+
+
+		private bool verificaSiEstaEnGrupo(string nombre) {
+
+			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+			cargar.NextSolution();
+			var b = "grupo('" + nombre + "').";
+
+			PlQuery q = new PlQuery("grupo('" + nombre + "').");
+			q.NextSolution();
+			var cantidadSoluciones = q.SolutionVariables.Count();
+			foreach (PlQueryVariables p in q.SolutionVariables)
+			{
+				var Resp = p;
+				var aq = 0;
+			}
+			q.Dispose();
+			if (cantidadSoluciones == 0)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+
+
+
 
 		private void BtnCreaMatriz_Click(object sender, EventArgs e)
 		{
@@ -232,7 +283,7 @@ namespace PruebaConexionProlog
 				for (int i = 0; i < tamano; i++)
 				{
 					boton[i] = new Button();
-					boton[i].Name = j.ToString()+ "_" + i.ToString();
+					boton[i].Name = j.ToString()+ "-" + i.ToString();
 					boton[i].Height = 30;
 					boton[i].Width = 40;
 					boton[i].BackColor = Color.Gray;
