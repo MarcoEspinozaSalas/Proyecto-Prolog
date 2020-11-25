@@ -15,6 +15,7 @@ namespace PruebaConexionProlog
     public partial class Form1 : Form
     {
 		private readonly Random _random = new Random();
+		private int name = 1;
 
 		public Form1()
         {
@@ -23,10 +24,11 @@ namespace PruebaConexionProlog
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Environment.SetEnvironmentVariable("Path", @"C:\\Program Files (x86)\\swipl\\bin");
+            Environment.SetEnvironmentVariable("Path", @"C:\\Program Files\\swipl\\bin");
             string[] p = { "-q", "-f", @"grafos.pl" };
             PlEngine.Initialize(p);
-        }
+			listBox1.Visible = false;
+		}
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -178,7 +180,9 @@ namespace PruebaConexionProlog
 		}
 
 
-		public void solut() {
+		// Por cada boton , al dar clikc obtner el name , mandarlo por parametro
+
+		public void solution() {
 			using (PlQuery q = new PlQuery("conexionMatriz(P, C, V), atomic_list_concat([P,C,V], L)"))
 			{
 				var r = q.SolutionVariables;
@@ -192,45 +196,66 @@ namespace PruebaConexionProlog
 
 		}
 
+		public void clickBoton(object sender, EventArgs e)
+        {
+			listBox1.Items.Clear();
+			string texto = (sender as Button).Text;
+			string nombre = (sender as Button).Name;
+
+			char fila = nombre[0];
+			char columna = nombre[2];
+			listBox1.Items.Add("Boton " + texto  + " fila " + fila + " columna " + columna );
+
+            if ((sender as Button).Text[0] != '.')
+            {
+				((Button)sender).BackColor = Color.Green;
+				((Button)sender).Text = "."+(sender as Button).Text;
+			}
+
+
+
+        }
 
 		private void BtnCreaMatriz_Click(object sender, EventArgs e)
 		{
 			pnlCreaMatriz.Visible = false;
 			pnlTablero.Visible = true;
+			listBox1.Visible = true;
 			var tamano = Int32.Parse(inputCantidad.Text);
 			var x = 0;
 			var y = 0;
 			var n = 0;
-			CheckBox[] chk;
-			chk = new CheckBox[tamano];
+			Button[] boton;
+			boton = new Button[tamano];
 			for (int j = 0; j < tamano; j++)
 			{
 				for (int i = 0; i < tamano; i++)
 				{
-					int num = _random.Next(4); // [0,1,2,3]  como valores randoms
-					chk[i] = new CheckBox();
-					chk[i].Location = new Point(x, y);
-					chk[i].Visible = true;
-					if (num == 0)
-					{
-						chk[i].Checked = true;
-					}
+					boton[i] = new Button();
+					boton[i].Name = j.ToString()+ "_" + i.ToString();
+					boton[i].Height = 30;
+					boton[i].Width = 40;
+					boton[i].BackColor = Color.Gray;
+					boton[i].Text = name.ToString();
+					boton[i].Font = new Font("Arial", 12);
+					boton[i].Location = new Point(x, y);
+					boton[i].Click += new EventHandler(clickBoton);
 
-					chk[i].Size = new Size(20, 20);
-					chk[i].Name = "chk" + n;  // chk0 , chk1 , chk2 , etc
-					
-					//chk[i].Click           
-					pnlTablero.Controls.Add(chk[i]);
+
+
+					pnlTablero.Controls.Add(boton[i]);
 					n++;
 					x = x + 30;
+					name++;
 				}
 				x = 0;
 				y = y + 30;
 			}
 
 			ConexionesProlog();
-			solut();
+			solution();
 
 		}
+
 	}
 }
