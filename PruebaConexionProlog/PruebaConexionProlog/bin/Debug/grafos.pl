@@ -1,6 +1,7 @@
 
- :- dynamic conexionMatriz/3.
-
+ 
+ :- dynamic conexionMatriz/3, grupo/1, insertaGrupo/1.
+ 
 %lugar(pueblo).
 %
 conectado(florencia,cq).
@@ -98,7 +99,11 @@ conectado_con(X,Y):- conectado(Y,X).
 %
 
 
+insertaGrupo(Y) :- assert(grupo(Y)).
+
 conexionMatriz_con(X,Y,Z):-conexionMatriz(X,Y,Z).
+
+existeGrupo(X):- grupo(X).
 
 ruta1(Lugar,Lugar,[Lugar]).
 ruta1(Inicio,Fin,[Inicio|Camino]):-
