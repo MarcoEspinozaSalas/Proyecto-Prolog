@@ -24,7 +24,7 @@ namespace PruebaConexionProlog
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files (x86)\\swipl\\bin");
+			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files\\swipl\\bin");
 			string[] p = { "-q", "-f", @"grafos.pl" };
 			PlEngine.Initialize(p);
 			listBox1.Visible = false;
@@ -215,8 +215,14 @@ namespace PruebaConexionProlog
 			if (!EsGrupo)
 			{
 				//Si no esta en grupo , se agrega a Prolog
-				var a = "assert(grupo('" + nombre + "')).";
-				PlQuery.PlCall("assert(grupo('" + nombre + "')).");
+				//var a = "assert(grupo('" + nombre + "')).";
+				PlQuery q =  new PlQuery("insertaGrupo(" + nombre + ")");
+				foreach (PlQueryVariables p in q.SolutionVariables)
+				{
+					var Resp = p;
+					var aq = 0;
+				}
+				q.Dispose();
 			}
 			else {
 				// Averiguar el grupo al que corresponde ese boton y colorearlos
@@ -233,7 +239,7 @@ namespace PruebaConexionProlog
 			if ((sender as Button).Text[0] != '.')
 			{
 				((Button)sender).BackColor = Color.Green;
-				((Button)sender).Text = "." + (sender as Button).Text;
+				((Button)sender).Text =(sender as Button).Text;
 			
 			}
 		}
@@ -243,16 +249,19 @@ namespace PruebaConexionProlog
 
 			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
 			cargar.NextSolution();
-			var b = "grupo('" + nombre + "').";
+			//var b = "grupo('" + nombre + "').";
 
-			PlQuery q = new PlQuery("grupo('" + nombre + "').");
-			q.NextSolution();
+			PlQuery q = new PlQuery("grupo(" + nombre + ").");
 			var cantidadSoluciones = q.SolutionVariables.Count();
 			foreach (PlQueryVariables p in q.SolutionVariables)
 			{
 				var Resp = p;
 				var aq = 0;
 			}
+			PlQuery consulta1 = new PlQuery("existeGrupo(Lista)");
+			foreach (PlQueryVariables p in consulta1.SolutionVariables)
+				listBox1.Items.Add(p["Lista"].ToString());
+			consulta1.Dispose();
 			q.Dispose();
 			if (cantidadSoluciones == 0)
 			{
