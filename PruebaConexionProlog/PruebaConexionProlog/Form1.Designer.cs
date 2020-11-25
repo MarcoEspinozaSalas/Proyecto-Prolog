@@ -36,6 +36,7 @@ namespace PruebaConexionProlog
             this.inputCantidad = new System.Windows.Forms.TextBox();
             this.btnCreaMatriz = new System.Windows.Forms.Button();
             this.pnlTablero = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.pnlCreaMatriz.SuspendLayout();
             this.pnlTablero.SuspendLayout();
             this.SuspendLayout();
@@ -107,11 +108,20 @@ namespace PruebaConexionProlog
             this.pnlTablero.TabIndex = 9;
             this.pnlTablero.Visible = false;
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(567, 118);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(337, 251);
+            this.listBox1.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 507);
+            this.ClientSize = new System.Drawing.Size(914, 476);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.pnlTablero);
             this.Controls.Add(this.pnlCreaMatriz);
             this.Controls.Add(this.label1);
@@ -136,6 +146,7 @@ namespace PruebaConexionProlog
 		private System.Windows.Forms.TextBox inputCantidad;
 		private System.Windows.Forms.Button btnCreaMatriz;
 		private System.Windows.Forms.Panel pnlTablero;
-	}
+        private System.Windows.Forms.ListBox listBox1;
+    }
 }
 
