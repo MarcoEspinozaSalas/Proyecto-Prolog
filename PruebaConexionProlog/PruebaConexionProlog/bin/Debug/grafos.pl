@@ -110,6 +110,10 @@ existeGrupo(X):- grupo(X).
 encontraVecinos(X,Y,Z):- conexionMatriz(X,Y,Z).
 
 
+road(X,L,L2) :- conexionMatriz(X,Y,Z), \+ memberchk(Y,L), !, road(X,[Y|L],L2).
+road(_,L,L).
+
+
 
 
 

@@ -18,6 +18,8 @@ namespace PruebaConexionProlog
 		private int name = 1;
 		List<string> GrupoAColorear = new List<string>();
 
+		List<string> PosicionesVisitadas = new List<string>();
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -25,7 +27,7 @@ namespace PruebaConexionProlog
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files(86)\\swipl\\bin");
+			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files\\swipl\\bin");
 			string[] p = { "-q", "-f", @"grafos.pl" };
 			PlEngine.Initialize(p);
 			listBox1.Visible = false;
@@ -57,12 +59,6 @@ namespace PruebaConexionProlog
 			//}
 		}
 
-
-		// EJEMPLO DE INSERCION DE GRUPOS , LUEGO VERIFICAR POR CADA ESPACIO (X,Y)
-		// "assertz(grupo("0_0"))."
-		// "assertz(grupo("0_1"))."
-		// "assertz(grupo("0_2"))."
-		// "assertz(grupo("3_2"))."
 
 		private void ConexionesProlog()
 		{
@@ -201,6 +197,8 @@ namespace PruebaConexionProlog
 		public void clickBoton(object sender, EventArgs e)
 		{
 			listBox1.Items.Clear();
+			PosicionesVisitadas.Clear();
+			GrupoAColorear.Clear();
 			string texto = (sender as Button).Text;
 			string nombre = (sender as Button).Name;
 
@@ -226,8 +224,7 @@ namespace PruebaConexionProlog
 
 				//string[] listaVecinos = new string[4];  // Maximo tendra 4 vecinos
 				List<string> listaVecinos = new List<string>();
-		
-				
+
 
 				PlQuery q = new PlQuery("conexionMatriz('"+nombre+"', C, V), atomic_list_concat([C,V], L)");
 				foreach (PlQueryVariables p in q.SolutionVariables)
@@ -237,11 +234,10 @@ namespace PruebaConexionProlog
 				}
 				q.Dispose();
 				String[] lista = listaVecinos.ToArray();
-				EncontrarGrupoDeBoton(lista);
+				EncontrarGrupoDeBoton(lista, nombre);
 			}
 
-			//cargar.Dispose();
-
+	
 
 			char fila = nombre[0];
 			char columna = nombre[2];
@@ -257,10 +253,12 @@ namespace PruebaConexionProlog
 
 
 
-		private void EncontrarGrupoDeBoton(string[] lista)
+		private void EncontrarGrupoDeBoton(string[] lista, string botonSeleccionado)
         {
 			listBox1.Items.Clear();
 			GrupoAColorear.Clear();
+			PosicionesVisitadas.Clear();
+			PosicionesVisitadas.Add(botonSeleccionado);
 			foreach (var item in lista)
             {
 				bool EsGrupo = verificaSiEstaEnGrupo(item);
@@ -268,6 +266,8 @@ namespace PruebaConexionProlog
 				{
 					//listBox1.Items.Add("Es grupo :"+ item.ToString());
 					GrupoAColorear.Add(item.ToString());
+					PosicionesVisitadas.Add(item.ToString());
+					
 					Console.WriteLine("Son del mismo grupo");
 				}
 				else {
@@ -277,12 +277,76 @@ namespace PruebaConexionProlog
 
 			}
 
-			//listBox1.Items.Add("Boton :" + GrupoAColorear.ToString());
-			foreach (var item in GrupoAColorear)
+            //listBox1.Items.Add("Boton :" + GrupoAColorear.ToString());
+            if (GrupoAColorear.Count() == 0)
             {
-				listBox1.Items.Add("Grupo :" + item.ToString());
+				listBox1.Items.Add("Grupo individual :" + botonSeleccionado);
+            }
+            else
+            {
+				//// RECURSION POR VECINOS
+				foreach (var item in GrupoAColorear)
+				{
+					PosicionesVisitadas.Add(item);
+					listBox1.Items.Add("Grupo :" + item.ToString());
+					EncuentraVecinosGrupoRecursivo(item.ToString());
+				}
+				
 			}
-			
+
+
+		}
+
+		private void EncuentraVecinosGrupoRecursivo(string nombre)
+        {
+			List<string> posiciones = ObtenerListaFiltrada( RetonarVecinosBotonSeleccionado(nombre));
+			if(posiciones.Count() == 0)
+            {
+				return;
+            }
+            else
+            {
+				foreach (var item in posiciones)
+				{
+					PosicionesVisitadas.Add(item.ToString());
+					listBox1.Items.Add("Vecinoss :" + item.ToString());
+					EncuentraVecinosGrupoRecursivo(item.ToString());
+				}
+			}
+            
+		}
+
+		private List<string> ObtenerListaFiltrada(List<string> lista)
+        {
+			List<string> filtrada = new List<string>();
+
+			for (int i = 0; i < lista.Count(); i++)
+            {
+				string a = lista[i];
+				bool EsGrupo = verificaSiEstaEnGrupo(lista[i].ToString());
+
+				if (!PosicionesVisitadas.Contains(lista[i].ToString()) && EsGrupo)
+                {
+					filtrada.Add(lista[i]);
+                }
+            }
+
+			return filtrada;
+        }
+
+		private List<string> RetonarVecinosBotonSeleccionado(string nombre)
+        {
+			List<string> lista = new List<string>();
+			PlQuery q = new PlQuery("conexionMatriz('" + nombre + "', C, V), atomic_list_concat([C,V], L)");
+			foreach (PlQueryVariables p in q.SolutionVariables)
+			{
+				var Resp = p;
+				lista.Add(p["C"].ToString());
+			}
+			q.Dispose();
+
+			return lista;
+
 		}
 
 
