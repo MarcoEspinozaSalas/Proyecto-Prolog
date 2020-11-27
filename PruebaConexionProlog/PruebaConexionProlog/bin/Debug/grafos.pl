@@ -1,7 +1,7 @@
 
-
+ 
  :- dynamic conexionMatriz/3, grupo/1, insertaGrupo/1.
-
+ 
 %lugar(pueblo).
 %
 conectado(florencia,cq).
@@ -90,9 +90,6 @@ conectado(inicio,2).
  conectado(35,36).
 
  conectado(32,fin).
-grupo(dgfssdfsdfd).
-grupo(sdfsdfsdfdf).
-grupo(dfcsdfsdf).
 
 cargar(A):-exists_file(A),consult(A).
 %ruta(X,Y)
@@ -102,11 +99,21 @@ conectado_con(X,Y):- conectado(Y,X).
 %
 
 
+
+
 insertaGrupo(Y) :- assert(grupo(Y)).
 
 conexionMatriz_con(X,Y,Z):-conexionMatriz(X,Y,Z).
 
 existeGrupo(X):- grupo(X).
+
+encontraVecinos(X,Y,Z):- conexionMatriz(X,Y,Z).
+
+
+
+
+
+
 
 ruta1(Lugar,Lugar,[Lugar]).
 ruta1(Inicio,Fin,[Inicio|Camino]):-
@@ -119,8 +126,8 @@ ruta2(Inicio,Fin,Visitados,[Inicio|Camino]):-
     conectado_con(Inicio,AlgunLugar), %conectado para el grafo
     not(member(AlgunLugar,Visitados)),
     ruta2(AlgunLugar,Fin,[Inicio|Visitados],Camino).
-
-
+	
+	
 ruta(Inicio,Fin,Camino):-
     Inicio\=Fin,
     ruta2(Inicio,Fin,[],Camino), write(Camino).
