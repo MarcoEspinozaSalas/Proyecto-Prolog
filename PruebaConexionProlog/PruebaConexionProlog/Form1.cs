@@ -27,37 +27,12 @@ namespace PruebaConexionProlog
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files\\swipl\\bin");
+			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files (x86)\\swipl\\bin");
 			string[] p = { "-q", "-f", @"grafos.pl" };
 			PlEngine.Initialize(p);
 			listBox1.Visible = false;
 		}
 
-		private void label1_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void button1_Click(object sender, EventArgs e)
-		{
-			//         string valorObtenido = textBox1.Text;
-			//string segundoValor = textBox2.Text;
-			//listBox1.Items.Clear();
-			//         PlQuery cargar = new PlQuery("cargar('grafos.bd')");
-			//         cargar.NextSolution();
-			//         if (checkBox1.Checked == true)
-			//         {
-			//             PlQuery consulta1 = new PlQuery("conectado_con(X,"+valorObtenido+")");
-			//             foreach (PlQueryVariables z in consulta1.SolutionVariables)
-			//                 listBox1.Items.Add(z["X"].ToString());
-			//         }
-			//if (checkBox2.Checked == true)
-			//{
-			//	PlQuery consulta1 = new PlQuery("ruta(" + valorObtenido + "," + segundoValor + ",Lista)");
-			//	foreach (PlQueryVariables p in consulta1.SolutionVariables)
-			//		listBox1.Items.Add(p["Lista"].ToString());
-			//}
-		}
 
 
 		private void ConexionesProlog()
@@ -284,14 +259,14 @@ namespace PruebaConexionProlog
             }
             else
             {
+				listBox1.Items.Add("Inicio :" + botonSeleccionado);
 				//// RECURSION POR VECINOS
 				foreach (var item in GrupoAColorear)
 				{
 					PosicionesVisitadas.Add(item);
-					listBox1.Items.Add("Grupo :" + item.ToString());
+					listBox1.Items.Add("Grupo Vecinos :" + item.ToString());
 					EncuentraVecinosGrupoRecursivo(item.ToString());
 				}
-				
 			}
 
 
@@ -309,7 +284,7 @@ namespace PruebaConexionProlog
 				foreach (var item in posiciones)
 				{
 					PosicionesVisitadas.Add(item.ToString());
-					listBox1.Items.Add("Vecinoss :" + item.ToString());
+					//listBox1.Items.Add("Vecinoss :" + item.ToString());
 					EncuentraVecinosGrupoRecursivo(item.ToString());
 				}
 			}
@@ -342,6 +317,14 @@ namespace PruebaConexionProlog
 			{
 				var Resp = p;
 				lista.Add(p["C"].ToString());
+			}
+			q.Dispose();
+
+			PlQuery r = new PlQuery("conexionMatriz(P, '" + nombre + "', V), atomic_list_concat([P,V], L)");
+			foreach (PlQueryVariables p in r.SolutionVariables)
+			{
+				var Resp = p;
+				lista.Add(p["P"].ToString());
 			}
 			q.Dispose();
 
