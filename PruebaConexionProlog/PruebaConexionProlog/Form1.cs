@@ -20,6 +20,9 @@ namespace PruebaConexionProlog
 
 		List<string> PosicionesVisitadas = new List<string>();
 
+		List<string> PosicionesMatriz = new List<string>();
+		List<string> PosicionesVisitadasMatriz = new List<string>();
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -27,7 +30,7 @@ namespace PruebaConexionProlog
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files (x86)\\swipl\\bin");
+			Environment.SetEnvironmentVariable("Path", @"C:\\Program Files\\swipl\\bin");
 			string[] p = { "-q", "-f", @"grafos.pl" };
 			PlEngine.Initialize(p);
 			listBox1.Visible = false;
@@ -37,15 +40,19 @@ namespace PruebaConexionProlog
 
 		private void ConexionesProlog()
 		{
+			PosicionesMatriz.Clear();
 			var tamano = Int32.Parse(inputCantidad.Text);
 			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
 			cargar.NextSolution();
-
+			
 
 			for (int x = 0; x < tamano; x++)
 			{                                       // CONEXION TOTAL DE MATRIZ PARA VERIFICAR EL GRUPO AL QUE PERTENCE  POR CADA (X,Y)
 				for (int y = 0; y < tamano; y++)
 				{
+
+					PosicionesMatriz.Add(x+"-"+y);
+
 					if (x == 0 && y == 0)
 					{
 
@@ -148,12 +155,8 @@ namespace PruebaConexionProlog
 			}
 			//cargar.Dispose();
 			solution();
-
-
 		}
 
-
-		// Por cada boton , al dar clikc obtner el name , mandarlo por parametro
 
 		public void solution() {
 			using (PlQuery q = new PlQuery("conexionMatriz(P, C, V), atomic_list_concat([P,C,V], L)"))
@@ -162,6 +165,7 @@ namespace PruebaConexionProlog
 				foreach (PlQueryVariables p in q.SolutionVariables)
 				{
 					var Resp = p["P"].ToString() + " conectado con " + p["C"].ToString();
+					listBox2.Items.Add(Resp);
 				}
 				q.Dispose();
 			}
@@ -171,37 +175,50 @@ namespace PruebaConexionProlog
 
 		public void clickBoton(object sender, EventArgs e)
 		{
-			listBox1.Items.Clear();
-			PosicionesVisitadas.Clear();
-			GrupoAColorear.Clear();
 			string texto = (sender as Button).Text;
 			string nombre = (sender as Button).Name;
+			char fila = nombre[0];
+			char columna = nombre[2];
 
-		 //    PlQuery cargar = new PlQuery("cargar('grafos.bd')");
-			//cargar.NextSolution();
+			if ((sender as Button).Text[0] != '.')
+			{
+				((Button)sender).BackColor = Color.Green;
+				((Button)sender).Text = (sender as Button).Text;
 
-			
+			}
 
 			bool EsGrupo = verificaSiEstaEnGrupo(nombre);
 			if (!EsGrupo)
 			{
 				//Si no esta en grupo , se agrega a Prolog
-				PlQuery q =  new PlQuery("insertaGrupo('" + nombre + "')");
+				PlQuery q = new PlQuery("insertaGrupo('" + nombre + "')");
 				foreach (PlQueryVariables p in q.SolutionVariables)
 				{
 					var Resp = p;
 				}
 				q.Dispose();
+            }
+            else
+            {
+				ObtenerGrupoRecursivo(nombre);
 			}
-			else {
+
+			
+		}
+
+		public void ObtenerGrupoRecursivo(string nombre)
+        {
+			listBox1.Items.Clear();
+			PosicionesVisitadas.Clear();
+			GrupoAColorear.Clear();
+
+
 				// Averiguar el grupo al que corresponde ese boton y colorearlos
 				Console.WriteLine("Colorea");
 
-				//string[] listaVecinos = new string[4];  // Maximo tendra 4 vecinos
 				List<string> listaVecinos = new List<string>();
 
-
-				PlQuery q = new PlQuery("conexionMatriz('"+nombre+"', C, V), atomic_list_concat([C,V], L)");
+				PlQuery q = new PlQuery("conexionMatriz('" + nombre + "', C, V), atomic_list_concat([C,V], L)");
 				foreach (PlQueryVariables p in q.SolutionVariables)
 				{
 					var Resp = p;
@@ -210,20 +227,7 @@ namespace PruebaConexionProlog
 				q.Dispose();
 				String[] lista = listaVecinos.ToArray();
 				EncontrarGrupoDeBoton(lista, nombre);
-			}
-
-	
-
-			char fila = nombre[0];
-			char columna = nombre[2];
-			//listBox1.Items.Add("Boton " + texto + " fila " + fila + " columna " + columna);
-
-			if ((sender as Button).Text[0] != '.')
-			{
-				((Button)sender).BackColor = Color.Green;
-				((Button)sender).Text =(sender as Button).Text;
 			
-			}
 		}
 
 
@@ -231,45 +235,50 @@ namespace PruebaConexionProlog
 		private void EncontrarGrupoDeBoton(string[] lista, string botonSeleccionado)
         {
 			listBox1.Items.Clear();
-			GrupoAColorear.Clear();
+			//GrupoAColorear.Clear();
 			PosicionesVisitadas.Clear();
 			PosicionesVisitadas.Add(botonSeleccionado);
+			PosicionesVisitadasMatriz.Add(botonSeleccionado);
+			
+
+			if (!verificaSiEstaEnGrupo(botonSeleccionado)){
+				return;
+			}
+			GrupoAColorear.Add(botonSeleccionado);
 			foreach (var item in lista)
             {
 				bool EsGrupo = verificaSiEstaEnGrupo(item);
 				if (EsGrupo)
 				{
-					//listBox1.Items.Add("Es grupo :"+ item.ToString());
 					GrupoAColorear.Add(item.ToString());
-					PosicionesVisitadas.Add(item.ToString());
+					PosicionesVisitadasMatriz.Add(item.ToString());
+					//PosicionesVisitadas.Add(item.ToString());
 					
 					Console.WriteLine("Son del mismo grupo");
 				}
 				else {
-					//listBox1.Items.Add("No es grupo :"+ item.ToString());
 					Console.WriteLine("No es grupo");
 				}
 
 			}
-
-            //listBox1.Items.Add("Boton :" + GrupoAColorear.ToString());
-            if (GrupoAColorear.Count() == 0)
+            if (GrupoAColorear.Count() == 1 )
             {
 				listBox1.Items.Add("Grupo individual :" + botonSeleccionado);
             }
             else
             {
 				listBox1.Items.Add("Inicio :" + botonSeleccionado);
-				//// RECURSION POR VECINOS
-				foreach (var item in GrupoAColorear)
-				{
-					PosicionesVisitadas.Add(item);
-					listBox1.Items.Add("Grupo Vecinos :" + item.ToString());
-					EncuentraVecinosGrupoRecursivo(item.ToString());
+                //// RECURSION POR VECINOS
+                for (int i = 0; i < GrupoAColorear.Count(); i++)
+                {
+					PosicionesVisitadas.Add(GrupoAColorear[i]);
+					PosicionesVisitadasMatriz.Add(GrupoAColorear[i]);
+					listBox1.Items.Add("Grupo Vecinos :" + GrupoAColorear[i]);
+					EncuentraVecinosGrupoRecursivo(GrupoAColorear[i]);
 				}
+
 			}
-
-
+			Console.WriteLine(GrupoAColorear);
 		}
 
 		private void EncuentraVecinosGrupoRecursivo(string nombre)
@@ -283,9 +292,20 @@ namespace PruebaConexionProlog
             {
 				foreach (var item in posiciones)
 				{
+					bool EsGrupo = verificaSiEstaEnGrupo(item.ToString());
 					PosicionesVisitadas.Add(item.ToString());
-					//listBox1.Items.Add("Vecinoss :" + item.ToString());
-					EncuentraVecinosGrupoRecursivo(item.ToString());
+					PosicionesVisitadasMatriz.Add(item.ToString());
+					if (EsGrupo)
+                    {
+                        if (!GrupoAColorear.Contains(item.ToString()))
+                       {
+						GrupoAColorear.Add(item.ToString());
+					}
+						
+						listBox1.Items.Add("Grupo vecinos recursivos :" + item.ToString());
+						EncuentraVecinosGrupoRecursivo(item.ToString());
+					}
+					
 				}
 			}
             
@@ -297,10 +317,8 @@ namespace PruebaConexionProlog
 
 			for (int i = 0; i < lista.Count(); i++)
             {
-				string a = lista[i];
-				bool EsGrupo = verificaSiEstaEnGrupo(lista[i].ToString());
 
-				if (!PosicionesVisitadas.Contains(lista[i].ToString()) && EsGrupo)
+				if (!PosicionesVisitadas.Contains(lista[i].ToString()))
                 {
 					filtrada.Add(lista[i]);
                 }
@@ -334,10 +352,6 @@ namespace PruebaConexionProlog
 
 
 		private bool verificaSiEstaEnGrupo(string nombre) {
-
-			//PlQuery cargar = new PlQuery("cargar('grafos.bd')");
-			//cargar.NextSolution();
-			//var b = "grupo('" + nombre + "').";
 
 			PlQuery q = new PlQuery("grupo('" + nombre + "').");
 			var cantidadSoluciones = q.SolutionVariables.Count();
@@ -404,6 +418,36 @@ namespace PruebaConexionProlog
 			
 
 		}
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+			EncontrarGruposMatriz();
+        }
+
+		private void EncontrarGruposMatriz()
+        {
+			PosicionesVisitadasMatriz.Clear();  // Lista de posiciones de la matriz
+			listBox3.Items.Clear();
+
+			for (int i = 0; i < PosicionesMatriz.Count(); i++)
+            {
+				string posc = PosicionesMatriz[i];
+                if (!PosicionesVisitadasMatriz.Contains(posc))
+                {
+					PosicionesVisitadasMatriz.Add(posc);
+					ObtenerGrupoRecursivo(posc);
+					Console.WriteLine(GrupoAColorear);
+					if(GrupoAColorear.Count() > 0)
+                    {
+						listBox3.Items.Add("Grupo hallado de tamaño" + GrupoAColorear.Count());
+                    }
+				
+					GrupoAColorear.Clear();
+					//PosicionesVisitadas.Clear();
+				}
+
+			}
+        }
 
 	}
 }
