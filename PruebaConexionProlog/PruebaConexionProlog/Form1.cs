@@ -22,6 +22,7 @@ namespace PruebaConexionProlog
 
 		List<string> PosicionesMatriz = new List<string>();
 		List<string> PosicionesVisitadasMatriz = new List<string>();
+		Button[] boton;
 
 		public Form1()
 		{
@@ -37,7 +38,9 @@ namespace PruebaConexionProlog
 		}
 
 
-
+		/// <summary>
+		/// Se insertan en Prolog las conexiones de todos los nodos de la matriz para verificar luego por los grupos vecinos
+		/// </summary>
 		private void ConexionesProlog()
 		{
 			PosicionesMatriz.Clear();
@@ -158,6 +161,9 @@ namespace PruebaConexionProlog
 		}
 
 
+		/// <summary>
+		/// Se consulta en Prolog las conexiones realizadas
+		/// </summary>
 		public void solution() {
 			using (PlQuery q = new PlQuery("conexionMatriz(P, C, V), atomic_list_concat([P,C,V], L)"))
 			{
@@ -173,6 +179,12 @@ namespace PruebaConexionProlog
 
 
 
+		/// <summary>
+		/// Al dar click en un boton de la interfaz de matriz (Se colorea y asigna como grupo individual o sino 
+		/// se buscan sus adyacentes de grupo)
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public void clickBoton(object sender, EventArgs e)
 		{
 			string texto = (sender as Button).Text;
@@ -201,11 +213,18 @@ namespace PruebaConexionProlog
             else
             {
 				ObtenerGrupoRecursivo(nombre);
+				ColorearBotones();
 			}
 
 			
 		}
 
+	
+
+		/// <summary>
+		/// Obtiene los vecinos del boton de manera recursiva
+		/// </summary>
+		/// <param name="nombre"></param>
 		public void ObtenerGrupoRecursivo(string nombre)
         {
 			listBox1.Items.Clear();
@@ -231,7 +250,11 @@ namespace PruebaConexionProlog
 		}
 
 
-
+		/// <summary>
+		/// Se obtienen los primeros vecinos del boton presionado , sin recursividad. EN caso de ser tipo grupos, se realiza recursividad para 
+		/// hallar el resto
+		/// </summary>
+		/// <param name="nombre"></param>
 		private void EncontrarGrupoDeBoton(string[] lista, string botonSeleccionado)
         {
 			listBox1.Items.Clear();
@@ -281,6 +304,11 @@ namespace PruebaConexionProlog
 			Console.WriteLine(GrupoAColorear);
 		}
 
+
+		/// <summary>
+		/// Se consulta de manera recursiva al Backend de Prolog para consultar por los vecinos que son grupos
+		/// </summary>
+		/// <param name="nombre"></param>
 		private void EncuentraVecinosGrupoRecursivo(string nombre)
         {
 			List<string> posiciones = ObtenerListaFiltrada( RetonarVecinosBotonSeleccionado(nombre));
@@ -311,6 +339,12 @@ namespace PruebaConexionProlog
             
 		}
 
+
+		/// <summary>
+		/// Se evitan datos repetidos en lista
+		/// </summary>
+		/// <param name="lista"></param>
+		/// <returns></returns>
 		private List<string> ObtenerListaFiltrada(List<string> lista)
         {
 			List<string> filtrada = new List<string>();
@@ -327,6 +361,12 @@ namespace PruebaConexionProlog
 			return filtrada;
         }
 
+
+		/// <summary>
+		/// Se consulta  a Prolog por las posiciones adyacentes conectadas a ese boton
+		/// </summary>
+		/// <param name="nombre"></param>
+		/// <returns></returns>
 		private List<string> RetonarVecinosBotonSeleccionado(string nombre)
         {
 			List<string> lista = new List<string>();
@@ -351,6 +391,11 @@ namespace PruebaConexionProlog
 		}
 
 
+		/// <summary>
+		/// Dado un nombre de boton (0_0 , 2_1), se verifica desde Prolog si este ya es un grupo individual
+		/// </summary>
+		/// <param name="nombre"></param>
+		/// <returns></returns>
 		private bool verificaSiEstaEnGrupo(string nombre) {
 
 			PlQuery q = new PlQuery("grupo('" + nombre + "').");
@@ -378,7 +423,32 @@ namespace PruebaConexionProlog
 
 
 
+		private void ColorearBotones()
+        {
+			listBox1.Items.Clear();
+			listBox1.Items.Add("Pertenece a un grupo de tamaño : " + GrupoAColorear.Count());
 
+			for (int i = 0; i < GrupoAColorear.Count(); i++)
+            {
+				foreach (var item in boton)
+				{
+					if(item.Name == GrupoAColorear[i])
+                    {
+						listBox1.Items.Add(" *** " + GrupoAColorear[i]);
+						item.BackColor = Color.Blue;
+					}
+				}
+			}
+            
+        }
+
+
+
+		/// <summary>
+		/// Genera la matriz de botones dinamicamente 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void BtnCreaMatriz_Click(object sender, EventArgs e)
 		{
 			pnlCreaMatriz.Visible = false;
@@ -388,24 +458,23 @@ namespace PruebaConexionProlog
 			var x = 0;
 			var y = 0;
 			var n = 0;
-			Button[] boton;
-			boton = new Button[tamano];
+			//Button[] boton;
+			boton = new Button[tamano* tamano];
 			for (int j = 0; j < tamano; j++)
 			{
 				for (int i = 0; i < tamano; i++)
 				{
-					boton[i] = new Button();
-					boton[i].Name = j.ToString()+ "-" + i.ToString();
-					boton[i].Height = 30;
-					boton[i].Width = 40;
-					boton[i].BackColor = Color.Gray;
-					boton[i].Text = name.ToString();
-					boton[i].Font = new Font("Arial", 12);
-					boton[i].Location = new Point(x, y);
-					boton[i].Click += new EventHandler(clickBoton);
+					boton[n] = new Button();
+					boton[n].Name = j.ToString()+ "-" + i.ToString();
+					boton[n].Height = 30;
+					boton[n].Width = 40;
+					boton[n].BackColor = Color.Gray;
+					boton[n].Text = name.ToString();
+					boton[n].Font = new Font("Arial", 12);
+					boton[n].Location = new Point(x, y);
+					boton[n].Click += new EventHandler(clickBoton);
 
-
-					pnlTablero.Controls.Add(boton[i]);
+					pnlTablero.Controls.Add(boton[n]);
 					n++;
 					x = x + 30;
 					name++;
@@ -419,15 +488,22 @@ namespace PruebaConexionProlog
 
 		}
 
+
+
         private void button2_Click(object sender, EventArgs e)
         {
 			EncontrarGruposMatriz();
         }
 
+
+		/// <summary>
+		/// Se recorre cada posicion de boton para hallar grupos formados adyacentes desde Prolog
+		/// </summary>
 		private void EncontrarGruposMatriz()
         {
 			PosicionesVisitadasMatriz.Clear();  // Lista de posiciones de la matriz
 			listBox3.Items.Clear();
+			List<int> tamanosGrupos = new List<int>();
 
 			for (int i = 0; i < PosicionesMatriz.Count(); i++)
             {
@@ -436,18 +512,130 @@ namespace PruebaConexionProlog
                 {
 					PosicionesVisitadasMatriz.Add(posc);
 					ObtenerGrupoRecursivo(posc);
-					Console.WriteLine(GrupoAColorear);
+					//Console.WriteLine(GrupoAColorear);
 					if(GrupoAColorear.Count() > 0)
                     {
-						listBox3.Items.Add("Grupo hallado de tamaño" + GrupoAColorear.Count());
+						//listBox3.Items.Add("Grupo hallado de tamaño " + GrupoAColorear.Count());
+						tamanosGrupos.Add(GrupoAColorear.Count());
                     }
-				
+					
 					GrupoAColorear.Clear();
-					//PosicionesVisitadas.Clear();
 				}
 
 			}
+			ImprimirCantidadesGrupos(tamanosGrupos);
+		}
+
+		private void ImprimirCantidadesGrupos(List<int> tamanosGrupos)
+        {
+			listBox3.Items.Clear();
+			List<int> repetidos = new List<int>();
+			int count = 0;
+			foreach (var item in tamanosGrupos)
+            {
+				int actual = item;
+				count = 0;
+                foreach (var j in tamanosGrupos)
+                {	
+					if (!repetidos.Contains(j) && j == item)
+                    {
+						count++;
+                    }
+                }
+				if(count != 0)
+                {
+					listBox3.Items.Add("Cantidad de Grupo con tamaño " + item + " : " + count);
+				}
+				
+				repetidos.Add(item);
+
+            }
         }
 
-	}
+
+
+
+
+		/// <summary>
+		/// Elimina los grupos creados desde Prolog y setea los botones a color Gris
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+			foreach (var item in boton)
+			{
+				item.BackColor = Color.Gray;
+			}
+
+			//GrupoAColorear.Clear();
+			//PosicionesVisitadas.Clear();
+			//PosicionesMatriz.Clear();
+			//PosicionesVisitadasMatriz.Clear();
+
+			PlQuery q = new PlQuery("retractall(grupo(X)).");
+			foreach (PlQueryVariables p in q.SolutionVariables)
+			{
+				var Resp = p;
+			}
+			q.Dispose();
+			//PlQuery cargar = new PlQuery("retractall(grupo(X)).");
+			//cargar.NextSolution();
+			//cargar.Dispose();
+			listBox1.Items.Clear();
+			listBox2.Items.Clear();
+	
+		}
+
+
+
+		/// <summary>
+		/// Creat tablero aleatorio
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+        private void button4_Click(object sender, EventArgs e)
+        {
+			pnlCreaMatriz.Visible = false;
+			pnlTablero.Visible = true;
+			listBox1.Visible = true;
+			var tamano = Int32.Parse(inputCantidad.Text);
+			var x = 0;
+			var y = 0;
+			var n = 0;
+			//Button[] boton;
+			boton = new Button[tamano * tamano];
+			for (int j = 0; j < tamano; j++)
+			{
+				for (int i = 0; i < tamano; i++)
+				{
+					boton[n] = new Button();
+					boton[n].Name = j.ToString() + "-" + i.ToString();
+					boton[n].Height = 30;
+					boton[n].Width = 40;
+					boton[n].BackColor = Color.Gray;
+					boton[n].Text = name.ToString();
+					boton[n].Font = new Font("Arial", 12);
+					boton[n].Location = new Point(x, y);
+					boton[n].Click += new EventHandler(clickBoton);
+
+					int rnd = _random.Next(0, 5);
+					pnlTablero.Controls.Add(boton[n]);
+					if (rnd == 1)
+                    {
+						boton[n].BackColor = Color.Green;
+						boton[n].PerformClick();
+					}
+					n++;
+					x = x + 30;
+					name++;
+				}
+				x = 0;
+				y = y + 30;
+			}
+
+			ConexionesProlog();
+		}
+    }
 }
