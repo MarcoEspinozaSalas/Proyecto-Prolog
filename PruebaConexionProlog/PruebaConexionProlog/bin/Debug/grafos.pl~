@@ -99,11 +99,25 @@ conectado_con(X,Y):- conectado(Y,X).
 %
 
 
+
+
 insertaGrupo(Y) :- assert(grupo(Y)).
 
 conexionMatriz_con(X,Y,Z):-conexionMatriz(X,Y,Z).
 
 existeGrupo(X):- grupo(X).
+
+encontraVecinos(X,Y,Z):- conexionMatriz(X,Y,Z).
+
+
+road(X,L,L2) :- conexionMatriz(X,Y,Z), \+ memberchk(Y,L), !, road(X,[Y|L],L2).
+road(_,L,L).
+
+
+
+
+
+
 
 ruta1(Lugar,Lugar,[Lugar]).
 ruta1(Inicio,Fin,[Inicio|Camino]):-

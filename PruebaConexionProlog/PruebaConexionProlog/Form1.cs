@@ -25,7 +25,7 @@ namespace PruebaConexionProlog
 		Button[] boton;
 
 		public Form1()
-		{
+		{ 
 			InitializeComponent();
 		}
 
@@ -35,6 +35,12 @@ namespace PruebaConexionProlog
 			string[] p = { "-q", "-f", @"grafos.pl" };
 			PlEngine.Initialize(p);
 			listBox1.Visible = false;
+			listBox2.Visible = false;
+			listBox3.Visible = false;
+			label3.Visible = false;
+			label4.Visible = false;
+			label5.Visible = false;
+			
 		}
 
 
@@ -156,8 +162,10 @@ namespace PruebaConexionProlog
 
 				}
 			}
-			//cargar.Dispose();
+			
 			solution();
+			cargar.Dispose();
+
 		}
 
 
@@ -165,6 +173,8 @@ namespace PruebaConexionProlog
 		/// Se consulta en Prolog las conexiones realizadas
 		/// </summary>
 		public void solution() {
+			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+			cargar.NextSolution();
 			using (PlQuery q = new PlQuery("conexionMatriz(P, C, V), atomic_list_concat([P,C,V], L)"))
 			{
 				var r = q.SolutionVariables;
@@ -175,6 +185,7 @@ namespace PruebaConexionProlog
 				}
 				q.Dispose();
 			}
+			cargar.Dispose();
 		}
 
 
@@ -187,12 +198,12 @@ namespace PruebaConexionProlog
 		/// <param name="e"></param>
 		public void clickBoton(object sender, EventArgs e)
 		{
-			string texto = (sender as Button).Text;
+			//string texto = (sender as Button).Text;
 			string nombre = (sender as Button).Name;
 			char fila = nombre[0];
 			char columna = nombre[2];
 
-			if ((sender as Button).Text[0] != '.')
+			if ((sender as Button).Text == "")
 			{
 				((Button)sender).BackColor = Color.Green;
 				((Button)sender).Text = (sender as Button).Text;
@@ -202,6 +213,8 @@ namespace PruebaConexionProlog
 			bool EsGrupo = verificaSiEstaEnGrupo(nombre);
 			if (!EsGrupo)
 			{
+				PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+				cargar.NextSolution();
 				//Si no esta en grupo , se agrega a Prolog
 				PlQuery q = new PlQuery("insertaGrupo('" + nombre + "')");
 				foreach (PlQueryVariables p in q.SolutionVariables)
@@ -209,6 +222,7 @@ namespace PruebaConexionProlog
 					var Resp = p;
 				}
 				q.Dispose();
+				cargar.Dispose();
             }
             else
             {
@@ -236,14 +250,16 @@ namespace PruebaConexionProlog
 				Console.WriteLine("Colorea");
 
 				List<string> listaVecinos = new List<string>();
-
-				PlQuery q = new PlQuery("conexionMatriz('" + nombre + "', C, V), atomic_list_concat([C,V], L)");
+			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+			cargar.NextSolution();
+			PlQuery q = new PlQuery("conexionMatriz('" + nombre + "', C, V), atomic_list_concat([C,V], L)");
 				foreach (PlQueryVariables p in q.SolutionVariables)
 				{
 					var Resp = p;
 					listaVecinos.Add(p["C"].ToString());
 				}
 				q.Dispose();
+			cargar.Dispose();
 				String[] lista = listaVecinos.ToArray();
 				EncontrarGrupoDeBoton(lista, nombre);
 			
@@ -369,6 +385,9 @@ namespace PruebaConexionProlog
 		/// <returns></returns>
 		private List<string> RetonarVecinosBotonSeleccionado(string nombre)
         {
+			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+			cargar.NextSolution();
+
 			List<string> lista = new List<string>();
 			PlQuery q = new PlQuery("conexionMatriz('" + nombre + "', C, V), atomic_list_concat([C,V], L)");
 			foreach (PlQueryVariables p in q.SolutionVariables)
@@ -384,7 +403,9 @@ namespace PruebaConexionProlog
 				var Resp = p;
 				lista.Add(p["P"].ToString());
 			}
-			q.Dispose();
+			r.Dispose();
+
+			cargar.Dispose();
 
 			return lista;
 
@@ -398,12 +419,14 @@ namespace PruebaConexionProlog
 		/// <returns></returns>
 		private bool verificaSiEstaEnGrupo(string nombre) {
 
+			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+			cargar.NextSolution();
+
 			PlQuery q = new PlQuery("grupo('" + nombre + "').");
 			var cantidadSoluciones = q.SolutionVariables.Count();
 			foreach (PlQueryVariables p in q.SolutionVariables)
 			{
 				var Resp = p;
-				var aq = 0;
 			}
 			PlQuery consulta1 = new PlQuery("existeGrupo(Lista)");
 			foreach (PlQueryVariables p in consulta1.SolutionVariables)
@@ -411,6 +434,7 @@ namespace PruebaConexionProlog
 				//listBox1.Items.Add("");
 			consulta1.Dispose();
 			q.Dispose();
+			cargar.Dispose();
 			if (cantidadSoluciones == 0)
 			{
 				return false;
@@ -454,6 +478,11 @@ namespace PruebaConexionProlog
 			pnlCreaMatriz.Visible = false;
 			pnlTablero.Visible = true;
 			listBox1.Visible = true;
+			listBox2.Visible = true;
+			listBox3.Visible = true;
+			label3.Visible = true;
+			label4.Visible = true;
+			label5.Visible = true;
 			var tamano = Int32.Parse(inputCantidad.Text);
 			var x = 0;
 			var y = 0;
@@ -469,7 +498,7 @@ namespace PruebaConexionProlog
 					boton[n].Height = 30;
 					boton[n].Width = 40;
 					boton[n].BackColor = Color.Gray;
-					boton[n].Text = name.ToString();
+					//boton[n].Text = name.ToString();
 					boton[n].Font = new Font("Arial", 12);
 					boton[n].Location = new Point(x, y);
 					boton[n].Click += new EventHandler(clickBoton);
@@ -477,7 +506,7 @@ namespace PruebaConexionProlog
 					pnlTablero.Controls.Add(boton[n]);
 					n++;
 					x = x + 30;
-					name++;
+					//name++;
 				}
 				x = 0;
 				y = y + 30;
@@ -574,18 +603,22 @@ namespace PruebaConexionProlog
 			//PosicionesMatriz.Clear();
 			//PosicionesVisitadasMatriz.Clear();
 
-			PlQuery q = new PlQuery("retractall(grupo(X)).");
+			PlQuery cargar = new PlQuery("cargar('grafos.bd')");
+			cargar.NextSolution();
+
+			PlQuery q = new PlQuery("eliminar(X).");
 			foreach (PlQueryVariables p in q.SolutionVariables)
 			{
 				var Resp = p;
 			}
+			cargar.Dispose();
 			q.Dispose();
 			//PlQuery cargar = new PlQuery("retractall(grupo(X)).");
 			//cargar.NextSolution();
 			//cargar.Dispose();
 			listBox1.Items.Clear();
 			listBox2.Items.Clear();
-	
+	 
 		}
 
 
@@ -615,7 +648,7 @@ namespace PruebaConexionProlog
 					boton[n].Height = 30;
 					boton[n].Width = 40;
 					boton[n].BackColor = Color.Gray;
-					boton[n].Text = name.ToString();
+					//boton[n].Text = name.ToString();
 					boton[n].Font = new Font("Arial", 12);
 					boton[n].Location = new Point(x, y);
 					boton[n].Click += new EventHandler(clickBoton);
@@ -629,7 +662,7 @@ namespace PruebaConexionProlog
 					}
 					n++;
 					x = x + 30;
-					name++;
+					//name++;
 				}
 				x = 0;
 				y = y + 30;
@@ -637,5 +670,10 @@ namespace PruebaConexionProlog
 
 			ConexionesProlog();
 		}
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
