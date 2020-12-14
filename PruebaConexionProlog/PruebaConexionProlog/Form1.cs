@@ -41,7 +41,10 @@ namespace PruebaConexionProlog
 			label3.Visible = false;
 			label4.Visible = false;
 			label5.Visible = false;
-			
+			listBox4.Visible = false;
+			label5.Visible = false;
+			button5.Visible = false;
+
 		}
 
 
@@ -493,6 +496,9 @@ namespace PruebaConexionProlog
 				label3.Visible = true;
 				label4.Visible = true;
 				label5.Visible = true;
+				listBox4.Visible = true;
+				label5.Visible = true;
+				button5.Visible = true;
 
 
 				//Button[] boton;
@@ -666,6 +672,9 @@ namespace PruebaConexionProlog
 				listBox1.Visible = true;
 				listBox2.Visible = true;
 				listBox3.Visible = true;
+				listBox4.Visible = true;
+				label5.Visible = true;
+				button5.Visible = true;
 
 				//Button[] boton;
 				boton = new Button[tamano * tamano];
