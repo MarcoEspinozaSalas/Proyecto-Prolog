@@ -22,6 +22,7 @@ namespace PruebaConexionProlog
 
 		List<string> PosicionesMatriz = new List<string>();
 		List<string> PosicionesVisitadasMatriz = new List<string>();
+		List<List<String>> AllGrupos = new List<List<String>>(); //
 		Button[] boton;
 
 		public Form1()
@@ -79,7 +80,7 @@ namespace PruebaConexionProlog
 						var x2 = x + 1;
 
 						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x + "-" + y2 + "', false)).");
-						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y2 + "', false)).");
+						PlQuery.PlCall("assert(conexionMatriz('" + x + "-" + y + "','" + x2 + "-" + y + "', false)).");
 						continue;
 					}
 					else if (x == tamano - 1 && y == 0)
@@ -475,51 +476,63 @@ namespace PruebaConexionProlog
 		/// <param name="e"></param>
 		private void BtnCreaMatriz_Click(object sender, EventArgs e)
 		{
-			pnlCreaMatriz.Visible = false;
-			pnlTablero.Visible = true;
-			listBox1.Visible = true;
-			listBox2.Visible = true;
-			listBox3.Visible = true;
-			label3.Visible = true;
-			label4.Visible = true;
-			label5.Visible = true;
-			var tamano = Int32.Parse(inputCantidad.Text);
-			var x = 0;
-			var y = 0;
-			var n = 0;
-			//Button[] boton;
-			boton = new Button[tamano* tamano];
-			for (int j = 0; j < tamano; j++)
-			{
-				for (int i = 0; i < tamano; i++)
-				{
-					boton[n] = new Button();
-					boton[n].Name = j.ToString()+ "-" + i.ToString();
-					boton[n].Height = 30;
-					boton[n].Width = 40;
-					boton[n].BackColor = Color.Gray;
-					//boton[n].Text = name.ToString();
-					boton[n].Font = new Font("Arial", 12);
-					boton[n].Location = new Point(x, y);
-					boton[n].Click += new EventHandler(clickBoton);
 
-					pnlTablero.Controls.Add(boton[n]);
-					n++;
-					x = x + 30;
-					//name++;
+			try
+			{
+				var tamano = Int32.Parse(inputCantidad.Text);
+				var x = 0;
+				var y = 0;
+				var n = 0;
+
+
+				pnlCreaMatriz.Visible = false;
+				pnlTablero.Visible = true;
+				listBox1.Visible = true;
+				listBox2.Visible = true;
+				listBox3.Visible = true;
+				label3.Visible = true;
+				label4.Visible = true;
+				label5.Visible = true;
+
+
+				//Button[] boton;
+				boton = new Button[tamano * tamano];
+				for (int j = 0; j < tamano; j++)
+				{
+					for (int i = 0; i < tamano; i++)
+					{
+						boton[n] = new Button();
+						boton[n].Name = j.ToString() + "-" + i.ToString();
+						boton[n].Height = 30;
+						boton[n].Width = 40;
+						boton[n].BackColor = Color.Gray;
+						//boton[n].Text = name.ToString();
+						boton[n].Font = new Font("Arial", 12);
+						boton[n].Location = new Point(x, y);
+						boton[n].Click += new EventHandler(clickBoton);
+
+						pnlTablero.Controls.Add(boton[n]);
+						n++;
+						x = x + 30;
+						//name++;
+					}
+					x = 0;
+					y = y + 30;
 				}
-				x = 0;
-				y = y + 30;
+
+				ConexionesProlog();
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Puso letras o espacio en blanco");
+				//throw;
 			}
 
-			ConexionesProlog();
-			
+
 
 		}
 
-
-
-        private void button2_Click(object sender, EventArgs e)
+		private void button2_Click(object sender, EventArgs e)
         {
 			EncontrarGruposMatriz();
         }
@@ -544,6 +557,12 @@ namespace PruebaConexionProlog
 					//Console.WriteLine(GrupoAColorear);
 					if(GrupoAColorear.Count() > 0)
                     {
+						List<string> copiaGrupos = new List<string>();
+						foreach (var item in GrupoAColorear)
+						{
+							copiaGrupos.Add(item);
+						}
+						AllGrupos.Add(copiaGrupos);
 						//listBox3.Items.Add("Grupo hallado de tamaño " + GrupoAColorear.Count());
 						tamanosGrupos.Add(GrupoAColorear.Count());
                     }
@@ -623,57 +642,145 @@ namespace PruebaConexionProlog
 
 
 
+
 		/// <summary>
 		/// Creat tablero aleatorio
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-        private void button4_Click(object sender, EventArgs e)
-        {
-			pnlCreaMatriz.Visible = false;
-			pnlTablero.Visible = true;
-			listBox1.Visible = true;
-			var tamano = Int32.Parse(inputCantidad.Text);
-			var x = 0;
-			var y = 0;
-			var n = 0;
-			//Button[] boton;
-			boton = new Button[tamano * tamano];
-			for (int j = 0; j < tamano; j++)
-			{
-				for (int i = 0; i < tamano; i++)
-				{
-					boton[n] = new Button();
-					boton[n].Name = j.ToString() + "-" + i.ToString();
-					boton[n].Height = 30;
-					boton[n].Width = 40;
-					boton[n].BackColor = Color.Gray;
-					//boton[n].Text = name.ToString();
-					boton[n].Font = new Font("Arial", 12);
-					boton[n].Location = new Point(x, y);
-					boton[n].Click += new EventHandler(clickBoton);
+		private void button4_Click(object sender, EventArgs e)
+		{
 
-					int rnd = _random.Next(0, 5);
-					pnlTablero.Controls.Add(boton[n]);
-					if (rnd == 1)
-                    {
-						boton[n].BackColor = Color.Green;
-						boton[n].PerformClick();
+			try
+			{
+
+
+				var a = inputCantidad.Text.GetType();
+				var tamano = Int32.Parse(inputCantidad.Text);
+				var x = 0;
+				var y = 0;
+				var n = 0;
+
+				pnlCreaMatriz.Visible = false;
+				pnlTablero.Visible = true;
+				listBox1.Visible = true;
+				listBox2.Visible = true;
+				listBox3.Visible = true;
+
+				//Button[] boton;
+				boton = new Button[tamano * tamano];
+				for (int j = 0; j < tamano; j++)
+				{
+					for (int i = 0; i < tamano; i++)
+					{
+						boton[n] = new Button();
+						boton[n].Name = j.ToString() + "-" + i.ToString();
+						boton[n].Height = 30;
+						boton[n].Width = 40;
+						boton[n].BackColor = Color.Gray;
+						//boton[n].Text = name.ToString();
+						boton[n].Font = new Font("Arial", 12);
+						boton[n].Location = new Point(x, y);
+						boton[n].Click += new EventHandler(clickBoton);
+
+						int rnd = _random.Next(0, 5);
+						pnlTablero.Controls.Add(boton[n]);
+						if (rnd == 1)
+						{
+							boton[n].BackColor = Color.Green;
+							boton[n].PerformClick();
+						}
+						n++;
+						x = x + 30;
+						//name++;
 					}
-					n++;
-					x = x + 30;
-					//name++;
+					x = 0;
+					y = y + 30;
 				}
-				x = 0;
-				y = y + 30;
+
+				ConexionesProlog();
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Puso letras o espacio en blanco");
+				//throw;
 			}
 
-			ConexionesProlog();
+
 		}
 
-        private void label3_Click(object sender, EventArgs e)
+		private void label3_Click(object sender, EventArgs e)
         {
 
         }
+
+		private void ColorearGruposTamaño(int tamanño)
+
+		{
+			List<string> repetidos = new List<string>();
+			for (int i = 0; i < AllGrupos.Count(); i++)
+			{
+
+				int tam = AllGrupos[i].Count();
+				if (tam == tamanño)
+				{
+					listBox4.Items.Add("***********");
+					foreach (var item in AllGrupos[i])
+					{
+						if (!repetidos.Contains(item.ToString()))
+						{
+							repetidos.Add(item.ToString());
+							for (int j = 0; j < boton.Length; j++)
+							{
+								if (boton[j].Name == item.ToString())
+								{
+
+									listBox4.Items.Add("- " + item.ToString());
+									if (tamanño == 1)
+									{
+										boton[j].BackColor = Color.Red;
+									}
+									else if (tamanño == 2)
+									{
+										boton[j].BackColor = Color.Black;
+									}
+									else if (tamanño == 3)
+									{
+										boton[j].BackColor = Color.BlueViolet;
+									}
+									else if (tamanño == 4)
+									{
+										boton[j].BackColor = Color.Brown;
+									}
+									else if (tamanño == 5)
+									{
+										boton[j].BackColor = Color.Bisque;
+									}
+									else
+									{
+										boton[j].BackColor = Color.Cornsilk;
+									}
+
+									break;
+								}
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+		private void button5_Click(object sender, EventArgs e)
+        {
+			string selectedItem = "";
+			listBox4.Items.Clear();
+			if (listBox3.Items.Count > 0)
+			{
+				int tamanoSeleccioando = Int32.Parse(listBox3.GetItemText(listBox3.SelectedItem).Split(' ')[5]);
+				ColorearGruposTamaño(tamanoSeleccioando);
+			}
+
+		}
     }
 }

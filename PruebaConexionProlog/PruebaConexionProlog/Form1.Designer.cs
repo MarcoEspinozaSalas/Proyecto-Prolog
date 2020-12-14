@@ -45,6 +45,8 @@ namespace PruebaConexionProlog
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.listBox4 = new System.Windows.Forms.ListBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.pnlCreaMatriz.SuspendLayout();
             this.pnlTablero.SuspendLayout();
             this.SuspendLayout();
@@ -196,11 +198,31 @@ namespace PruebaConexionProlog
             this.label5.TabIndex = 16;
             this.label5.Text = "Grupo Actual del campo";
             // 
+            // listBox4
+            // 
+            this.listBox4.FormattingEnabled = true;
+            this.listBox4.Location = new System.Drawing.Point(1189, 477);
+            this.listBox4.Name = "listBox4";
+            this.listBox4.Size = new System.Drawing.Size(219, 212);
+            this.listBox4.TabIndex = 17;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(1199, 445);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(174, 23);
+            this.button5.TabIndex = 18;
+            this.button5.Text = "Colorear y mostrar grupos";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1460, 738);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.listBox4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -242,6 +264,8 @@ namespace PruebaConexionProlog
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ListBox listBox4;
+        private System.Windows.Forms.Button button5;
     }
 }
 
