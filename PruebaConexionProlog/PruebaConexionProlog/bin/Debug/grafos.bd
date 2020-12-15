@@ -99,7 +99,7 @@ conectado_con(X,Y):- conectado(Y,X).
 %
 
 
-
+eliminar(X):-retractall(grupo(X)).
 
 insertaGrupo(Y) :- assert(grupo(Y)).
 

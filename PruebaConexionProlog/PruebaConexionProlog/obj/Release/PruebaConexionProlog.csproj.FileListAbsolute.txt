@@ -1,0 +1,11 @@
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\bin\Release\PruebaConexionProlog.exe.config
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\bin\Release\PruebaConexionProlog.exe
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\bin\Release\PruebaConexionProlog.pdb
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\bin\Release\SwiPlCs.dll
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Release\PruebaConexionProlog.Form1.resources
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Release\PruebaConexionProlog.Properties.Resources.resources
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Release\PruebaConexionProlog.csproj.GenerateResource.cache
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Release\PruebaConexionProlog.csproj.CoreCompileInputs.cache
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Release\PruebaConexionProlog.csproj.CopyComplete
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Release\PruebaConexionProlog.exe
+C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Release\PruebaConexionProlog.pdb

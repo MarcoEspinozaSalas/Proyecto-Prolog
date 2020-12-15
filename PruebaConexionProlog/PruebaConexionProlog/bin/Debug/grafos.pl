@@ -1,7 +1,7 @@
 
- 
+
  :- dynamic conexionMatriz/3, grupo/1, insertaGrupo/1.
- 
+
 %lugar(pueblo).
 %
 conectado(florencia,cq).
@@ -99,7 +99,7 @@ conectado_con(X,Y):- conectado(Y,X).
 %
 
 
-
+eliminar(X):-retractall(grupo(X)).
 
 insertaGrupo(Y) :- assert(grupo(Y)).
 
@@ -130,8 +130,8 @@ ruta2(Inicio,Fin,Visitados,[Inicio|Camino]):-
     conectado_con(Inicio,AlgunLugar), %conectado para el grafo
     not(member(AlgunLugar,Visitados)),
     ruta2(AlgunLugar,Fin,[Inicio|Visitados],Camino).
-	
-	
+
+
 ruta(Inicio,Fin,Camino):-
     Inicio\=Fin,
     ruta2(Inicio,Fin,[],Camino), write(Camino).
