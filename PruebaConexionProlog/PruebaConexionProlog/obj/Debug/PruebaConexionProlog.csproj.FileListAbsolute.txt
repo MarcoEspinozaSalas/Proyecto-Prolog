@@ -31,3 +31,14 @@ C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionPr
 C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.exe
 C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.pdb
 C:\Users\marco\OneDrive\Escritorio\proyectoProlog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.csprojAssemblyReference.cache
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\bin\Debug\PruebaConexionProlog.exe.config
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\bin\Debug\PruebaConexionProlog.exe
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\bin\Debug\PruebaConexionProlog.pdb
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.csprojAssemblyReference.cache
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.Form1.resources
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.Properties.Resources.resources
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.csproj.GenerateResource.cache
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.csproj.CoreCompileInputs.cache
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.csproj.CopyComplete
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.exe
+C:\Users\PB650\Dropbox\Mi PC (DESKTOP-0NDFKGG)\Desktop\prolog\proyetoprolog\PruebaConexionProlog\PruebaConexionProlog\obj\Debug\PruebaConexionProlog.pdb

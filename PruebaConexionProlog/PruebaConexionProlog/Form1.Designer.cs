@@ -53,10 +53,10 @@ namespace PruebaConexionProlog
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(47, 463);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Location = new System.Drawing.Point(63, 570);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 28);
+            this.button1.Size = new System.Drawing.Size(125, 34);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -64,10 +64,9 @@ namespace PruebaConexionProlog
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(45, 5);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(60, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 13);
+            this.label1.Size = new System.Drawing.Size(111, 17);
             this.label1.TabIndex = 5;
             this.label1.Text = "Conexion Prolog";
             // 
@@ -77,16 +76,18 @@ namespace PruebaConexionProlog
             this.pnlCreaMatriz.Controls.Add(this.label2);
             this.pnlCreaMatriz.Controls.Add(this.inputCantidad);
             this.pnlCreaMatriz.Controls.Add(this.btnCreaMatriz);
-            this.pnlCreaMatriz.Location = new System.Drawing.Point(157, 12);
+            this.pnlCreaMatriz.Location = new System.Drawing.Point(209, 15);
+            this.pnlCreaMatriz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlCreaMatriz.Name = "pnlCreaMatriz";
-            this.pnlCreaMatriz.Size = new System.Drawing.Size(275, 100);
+            this.pnlCreaMatriz.Size = new System.Drawing.Size(367, 123);
             this.pnlCreaMatriz.TabIndex = 8;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(137, 62);
+            this.button4.Location = new System.Drawing.Point(183, 76);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 23);
+            this.button4.Size = new System.Drawing.Size(152, 28);
             this.button4.TabIndex = 3;
             this.button4.Text = "Crear aleatorio";
             this.button4.UseVisualStyleBackColor = true;
@@ -95,24 +96,27 @@ namespace PruebaConexionProlog
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 37);
+            this.label2.Location = new System.Drawing.Point(19, 46);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 13);
+            this.label2.Size = new System.Drawing.Size(128, 17);
             this.label2.TabIndex = 2;
             this.label2.Text = "Tamaño de tablero";
             // 
             // inputCantidad
             // 
-            this.inputCantidad.Location = new System.Drawing.Point(110, 34);
+            this.inputCantidad.Location = new System.Drawing.Point(147, 42);
+            this.inputCantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.inputCantidad.Name = "inputCantidad";
-            this.inputCantidad.Size = new System.Drawing.Size(68, 20);
+            this.inputCantidad.Size = new System.Drawing.Size(89, 22);
             this.inputCantidad.TabIndex = 1;
             // 
             // btnCreaMatriz
             // 
-            this.btnCreaMatriz.Location = new System.Drawing.Point(17, 62);
+            this.btnCreaMatriz.Location = new System.Drawing.Point(23, 76);
+            this.btnCreaMatriz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCreaMatriz.Name = "btnCreaMatriz";
-            this.btnCreaMatriz.Size = new System.Drawing.Size(114, 23);
+            this.btnCreaMatriz.Size = new System.Drawing.Size(152, 28);
             this.btnCreaMatriz.TabIndex = 0;
             this.btnCreaMatriz.Text = "Crear tablero aleatorio";
             this.btnCreaMatriz.UseVisualStyleBackColor = true;
@@ -121,33 +125,39 @@ namespace PruebaConexionProlog
             // pnlTablero
             // 
             this.pnlTablero.Controls.Add(this.button1);
-            this.pnlTablero.Location = new System.Drawing.Point(48, 118);
+            this.pnlTablero.Location = new System.Drawing.Point(64, 145);
+            this.pnlTablero.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlTablero.Name = "pnlTablero";
-            this.pnlTablero.Size = new System.Drawing.Size(559, 461);
+            this.pnlTablero.Size = new System.Drawing.Size(745, 567);
             this.pnlTablero.TabIndex = 9;
             this.pnlTablero.Visible = false;
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(623, 108);
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(831, 133);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(337, 251);
+            this.listBox1.Size = new System.Drawing.Size(448, 308);
             this.listBox1.TabIndex = 10;
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(1005, 108);
+            this.listBox2.ItemHeight = 16;
+            this.listBox2.Location = new System.Drawing.Point(1320, 133);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(337, 251);
+            this.listBox2.Size = new System.Drawing.Size(448, 308);
             this.listBox2.TabIndex = 11;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(584, 39);
+            this.button2.Location = new System.Drawing.Point(779, 48);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(195, 23);
+            this.button2.Size = new System.Drawing.Size(260, 28);
             this.button2.TabIndex = 3;
             this.button2.Text = "Hallar grupos en matriz";
             this.button2.UseVisualStyleBackColor = true;
@@ -156,16 +166,19 @@ namespace PruebaConexionProlog
             // listBox3
             // 
             this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(845, 445);
+            this.listBox3.ItemHeight = 16;
+            this.listBox3.Location = new System.Drawing.Point(831, 539);
+            this.listBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(337, 251);
+            this.listBox3.Size = new System.Drawing.Size(448, 308);
             this.listBox3.TabIndex = 12;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(807, 39);
+            this.button3.Location = new System.Drawing.Point(1076, 48);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(195, 23);
+            this.button3.Size = new System.Drawing.Size(260, 28);
             this.button3.TabIndex = 13;
             this.button3.Text = "Reintentar";
             this.button3.UseVisualStyleBackColor = true;
@@ -174,43 +187,49 @@ namespace PruebaConexionProlog
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1005, 83);
+            this.label3.Location = new System.Drawing.Point(1340, 102);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 13);
+            this.label3.Size = new System.Drawing.Size(123, 17);
             this.label3.TabIndex = 14;
             this.label3.Text = "Conexiones Matriz";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(915, 419);
+            this.label4.Location = new System.Drawing.Point(844, 518);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(146, 13);
+            this.label4.Size = new System.Drawing.Size(195, 17);
             this.label4.TabIndex = 15;
             this.label4.Text = "Numero y cantidad de grupos";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(620, 84);
+            this.label5.Location = new System.Drawing.Point(827, 103);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(121, 13);
+            this.label5.Size = new System.Drawing.Size(160, 17);
             this.label5.TabIndex = 16;
             this.label5.Text = "Grupo Actual del campo";
             // 
             // listBox4
             // 
             this.listBox4.FormattingEnabled = true;
-            this.listBox4.Location = new System.Drawing.Point(1189, 477);
+            this.listBox4.ItemHeight = 16;
+            this.listBox4.Location = new System.Drawing.Point(1299, 587);
+            this.listBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(219, 212);
+            this.listBox4.Size = new System.Drawing.Size(291, 260);
             this.listBox4.TabIndex = 17;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(1199, 445);
+            this.button5.Location = new System.Drawing.Point(1299, 539);
+            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(174, 23);
+            this.button5.Size = new System.Drawing.Size(232, 28);
             this.button5.TabIndex = 18;
             this.button5.Text = "Colorear y mostrar grupos";
             this.button5.UseVisualStyleBackColor = true;
@@ -218,9 +237,9 @@ namespace PruebaConexionProlog
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1460, 738);
+            this.ClientSize = new System.Drawing.Size(1732, 864);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.listBox4);
             this.Controls.Add(this.label5);
@@ -234,7 +253,7 @@ namespace PruebaConexionProlog
             this.Controls.Add(this.pnlTablero);
             this.Controls.Add(this.pnlCreaMatriz);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = " ";
             this.Load += new System.EventHandler(this.Form1_Load);
