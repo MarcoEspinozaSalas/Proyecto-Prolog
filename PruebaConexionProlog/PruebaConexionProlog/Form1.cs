@@ -614,7 +614,7 @@ namespace PruebaConexionProlog
         {
       listBox3.Items.Clear();
       List<int> repetidos = new List<int>();
-      int count = 0;
+      int count;
       foreach (var item in tamanosGrupos)
             {
         int actual = item;
@@ -627,7 +627,7 @@ namespace PruebaConexionProlog
                     }
                 }
         if(count != 0)
-                {
+                { 
           listBox3.Items.Add("Cantidad de Grupo con tamaño " + item + " : " + count);
         }
         
