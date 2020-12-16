@@ -590,7 +590,11 @@ namespace PruebaConexionProlog
                 {
           PosicionesVisitadasMatriz.Add(posc);
           ObtenerGrupoRecursivo(posc);
-          //Console.WriteLine(GrupoAColorear);
+					//Console.WriteLine(GrupoAColorear);
+
+		FiltarRepetidosGrupoColorear();
+
+
           if(GrupoAColorear.Count() > 0)
                     {
             List<string> copiaGrupos = new List<string>();
@@ -601,7 +605,7 @@ namespace PruebaConexionProlog
             AllGrupos.Add(copiaGrupos);
             //listBox3.Items.Add("Grupo hallado de tamaño " + GrupoAColorear.Count());
             tamanosGrupos.Add(GrupoAColorear.Count());
-                    }
+          }
           
           GrupoAColorear.Clear();
         }
@@ -610,7 +614,20 @@ namespace PruebaConexionProlog
       ImprimirCantidadesGrupos(tamanosGrupos);
     }
 
-    private void ImprimirCantidadesGrupos(List<int> tamanosGrupos)
+		private void FiltarRepetidosGrupoColorear()
+		{
+			List<string> SinRepetir = new List<string>();
+			foreach (var item in GrupoAColorear)
+			{
+				if (!SinRepetir.Contains(item)) {
+					SinRepetir.Add(item);
+				}
+			}
+			GrupoAColorear = SinRepetir;
+		}
+
+
+	private void ImprimirCantidadesGrupos(List<int> tamanosGrupos)
         {
       listBox3.Items.Clear();
       List<int> repetidos = new List<int>();
@@ -620,12 +637,12 @@ namespace PruebaConexionProlog
         int actual = item;
         count = 0;
                 foreach (var j in tamanosGrupos)
-                {  
-          if (!repetidos.Contains(j) && j == item)
-                    {
-            count++;
-                    }
-                }
+					{  
+			  if (!repetidos.Contains(j) && j == item)
+						{
+				count++;
+						}
+					}
         if(count != 0)
                 { 
           listBox3.Items.Add("Cantidad de Grupo con tamaño " + item + " : " + count);
