@@ -614,7 +614,7 @@ namespace PruebaConexionProlog
         {
       listBox3.Items.Clear();
       List<int> repetidos = new List<int>();
-      int count = 0;
+      int count;
       foreach (var item in tamanosGrupos)
             {
         int actual = item;
@@ -627,7 +627,7 @@ namespace PruebaConexionProlog
                     }
                 }
         if(count != 0)
-                {
+                { 
           listBox3.Items.Add("Cantidad de Grupo con tamaño " + item + " : " + count);
         }
         
@@ -668,15 +668,21 @@ namespace PruebaConexionProlog
       }
       cargar.Dispose();
       q.Dispose();
-      //PlQuery cargar = new PlQuery("retractall(grupo(X)).");
-      //cargar.NextSolution();
-      //cargar.Dispose();
+            //PlQuery cargar = new PlQuery("retractall(grupo(X)).");
+            //cargar.NextSolution();
+            //cargar.Dispose();
+      pnlTablero.Controls.Clear();
+      pnlTablero.Controls.Clear();
       listBox1.Items.Clear();
       listBox2.Items.Clear();
       listBox3.Items.Clear();
       listBox4.Items.Clear();
-      listBox1.Visible = false;
-             
+      AllGrupos.Clear();
+      GrupoAColorear.Clear();
+      PosicionesVisitadas.Clear();
+      PosicionesMatriz.Clear();
+      PosicionesMatriz.Clear();
+      listBox1.Visible = false;       
       listBox2.Visible = false;
       listBox3.Visible = false;
       listBox4.Visible = false;
@@ -684,8 +690,7 @@ namespace PruebaConexionProlog
       label4.Visible = false;
       label5.Visible = false;
       button5.Visible = false;
-      pnlCreaMatriz.Visible = true;
-      pnlTablero.Controls.Clear();
+      pnlCreaMatriz.Visible = true;    
       button3.Visible = false;
       button2.Visible = false;
       inputCantidad.Text = "";
@@ -828,13 +833,19 @@ namespace PruebaConexionProlog
 
     private void button5_Click(object sender, EventArgs e)
         {
-      string selectedItem = "";
-      listBox4.Items.Clear();
-      if (listBox3.Items.Count > 0)
-      {
-        int tamanoSeleccioando = Int32.Parse(listBox3.GetItemText(listBox3.SelectedItem).Split(' ')[5]);
-        ColorearGruposTamaño(tamanoSeleccioando);
-      }
+            try {
+                string selectedItem = "";
+                listBox4.Items.Clear();
+                if (listBox3.Items.Count > 0)
+                {
+                    int tamanoSeleccioando = Int32.Parse(listBox3.GetItemText(listBox3.SelectedItem).Split(' ')[5]);
+                    ColorearGruposTamaño(tamanoSeleccioando);
+                }
+            } 
+            catch {
+                MessageBox.Show("Debe seleccionar un un grupo para que funcione");
+            }
+     
 
     }
     }
